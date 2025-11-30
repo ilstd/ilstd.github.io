@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILStudio - Tutorials</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-robot"></i> ILStudio
+            </a>
+            <ul class="nav-links">
+                <li><a href="get_started.html" class="nav-link">Get Started</a></li>
+                <li><a href="index.html" class="nav-link">Overview</a></li>
+                <li><a href="docs.html" class="nav-link">Docs</a></li>
+                <li><a href="tutorials.html" class="nav-link active">Tutorials</a></li>
+                <li><a href="learnboard.html" class="nav-link">LearnBoard</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <a href="https://github.com/WwZzz/ILStudio" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> Github
+            </a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="doc-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="doc-sidebar">
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-header">Training Scenarios</li>
+                        <li><a href="#act-aloha" class="active">ACT on AlohaSim</a></li>
+                        <li><a href="#dp-aloha">Diffusion Policy</a></li>
+                        <li><a href="#smolvla">SmolVLA on MetaWorld</a></li>
+                        
+                        <li class="sidebar-header">Deployment</li>
+                        <li><a href="#policy-server">Policy Server</a></li>
+                        <li><a href="#real-world">Real World</a></li>
+                        <li><a href="#teleop">Teleoperation</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="doc-content">
+                    <h1>Tutorials</h1>
+                    <p class="lead">Step-by-step guides for training, evaluation, and deployment.</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+                    <section id="act-aloha">
+                        <h2>Scenario 1: ACT on AlohaSim</h2>
+                        <p>Train Action Chunking with Transformers (ACT) on a simulated manipulation task.</p>
+                        
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Train the Policy</h4>
+                                <pre><code>python train.py --policy act --task sim_transfer_cube_scripted --output_dir ckpt/act_aloha_sim_transfer</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Evaluate in Simulation</h4>
+                                <p>Select the appropriate backend for your hardware:</p>
+                                <pre><code># Headless Server (CPU rendering)
+export MUJOCO_GL=egl
+python eval_sim.py -m ckpt/act_aloha_sim_transfer -e aloha_transfer -o results/test_ --use_spawn
+
+# Desktop with GPU
+# export MUJOCO_GL=glfw
+# python eval_sim.py ...</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="dp-aloha">
+                        <h2>Scenario 2: Diffusion Policy on AlohaSim</h2>
+                        <p>Train a Diffusion Policy with custom training parameters.</p>
+                        
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Train Command</h4>
+                                <pre><code>python train.py --policy diffusion_policy \
+    --task sim_transfer_cube_scripted \
+    --output_dir ckpt/dp_aloha_sim_transfer \
+    --training.max_steps 200000 \
+    --training.save_steps 10000</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Evaluate</h4>
+                                <pre><code>python eval_sim.py \
+    --model_name_or_path ckpt/dp_aloha_sim_transfer \
+    --env_name aloha \
+    --task sim_transfer_cube_scripted</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="smolvla">
+                        <h2>Scenario 3: SmolVLA on MetaWorld</h2>
+                        <p>Train a Vision-Language-Action model on the MetaWorld benchmark.</p>
+                        <pre><code># Train
+python train.py --policy smolvla --task metaworld --output_dir ckpt/smolvla_metaworld --training.max_steps 100000 --training.per_device_train_batch_size 64
+
+# Evaluate (Client-Server Architecture)
+# Terminal 1: Start Policy Server
+python start_policy_server.py -m ckpt/smolvla_metaworld
+
+# Terminal 2: Run Client
+source benchmark/metaworld/.venv/bin/activate
+python eval_sim.py -o results/smolvla_mw_easy -e mw_easy -n 10 -bs 10</code></pre>
+                    </section>
+
+                    <section id="policy-server" style="margin-top: 4rem;">
+                        <h2><i class="fas fa-network-wired"></i> Advanced Deployment</h2>
+                        
+                        <h3>Policy Server Usage</h3>
+                        <p>Deploy your model as an API service.</p>
+                        <pre><code># Start server on default port 5000
+python start_policy_server -m /path/to/checkpoint
+
+# Specify port
+python start_policy_server -m /path/to/checkpoint -p 8080
+
+# Specify dataset stats
+python start_policy_server -m /path/to/checkpoint --dataset_id DATASET_ID</code></pre>
+
+                        <h3 id="real-world">Real World Deployment</h3>
+                        <p>Deploy to physical hardware (e.g., SO101 robot).</p>
+                        <pre><code># Config matches configs/env/aloha.yaml
+python eval_real.py -m /path/to/ckpt -c so101_follower</code></pre>
+
+                        <h3 id="teleop">Teleoperation Data Collection</h3>
+                        <p>Record demonstration data using Leader-Follower mode.</p>
+                        <pre><code># 1. Start Leader (Controller)
+python start_teleop_controller.py -c so101_leader
+
+# 2. Start Follower (Recorder)
+python start_teleop_recorder.py -c so101_follower</code></pre>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ILStudio Team. Licensed under MIT License.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

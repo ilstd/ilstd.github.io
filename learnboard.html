@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILStudio - LearnBoard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-robot"></i> ILStudio
+            </a>
+            <ul class="nav-links">
+                <li><a href="get_started.html" class="nav-link">Get Started</a></li>
+                <li><a href="index.html" class="nav-link">Overview</a></li>
+                <li><a href="docs.html" class="nav-link">Docs</a></li>
+                <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                <li><a href="learnboard.html" class="nav-link active">LearnBoard</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <a href="https://github.com/WwZzz/ILStudio" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> Github
+            </a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="hero" style="padding: 4rem 0;">
+            <div class="container">
+                <h1>LearnBoard</h1>
+                <p class="lead">Comprehensive gallery of supported policies, benchmarks, and robots.</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container">
+                
+                <section>
+                    <h2><i class="fas fa-brain"></i> Policy Gallery</h2>
+                    <p>ILStudio implements state-of-the-art imitation learning and embodied AI policies.</p>
+                    
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <table style="border: none; margin: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Policy</th>
+                                    <th>Type</th>
+                                    <th>Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>ACT</strong></td>
+                                    <td>Action Chunking</td>
+                                    <td><a href="https://arxiv.org/abs/2304.13705" target="_blank">[1] ArXiv 2304.13705</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Diffusion Policy</strong></td>
+                                    <td>Diffusion</td>
+                                    <td><a href="https://arxiv.org/abs/2303.04137" target="_blank">[2] ArXiv 2303.04137</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Qwen2VL+DP</strong></td>
+                                    <td>VLA</td>
+                                    <td>[3] + [2]</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DiVLA</strong></td>
+                                    <td>Diffusion VLA</td>
+                                    <td><a href="https://arxiv.org/html/2412.03293v1" target="_blank">[4] ArXiv 2412.03293</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>OpenVLA</strong></td>
+                                    <td>VLA</td>
+                                    <td><a href="https://arxiv.org/abs/2406.09246" target="_blank">[5] ArXiv 2406.09246</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pi0</strong></td>
+                                    <td>VLA</td>
+                                    <td><a href="https://arxiv.org/html/2410.24164v1" target="_blank">[6] ArXiv 2410.24164</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SmolVLA</strong></td>
+                                    <td>Compact VLA</td>
+                                    <td><a href="https://arxiv.org/abs/2506.01844" target="_blank">[8] ArXiv 2506.01844</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Octo</strong></td>
+                                    <td>VLA</td>
+                                    <td><a href="https://octo-models.github.io/" target="_blank">[9] octo-models.github.io</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MLP / ResNet</strong></td>
+                                    <td>Baseline</td>
+                                    <td><a href="https://arxiv.org/abs/1512.03385" target="_blank">[7] ArXiv 1512.03385</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-tachometer-alt"></i> Benchmarks</h2>
+                    <p>Verified simulation environments for evaluation.</p>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Aloha Sim</h3>
+                            <p>High-fidelity bimanual manipulation simulation.</p>
+                        </div>
+                        <div class="card">
+                            <h3>MetaWorld</h3>
+                            <p>50 distinct robotic manipulation tasks.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Libero</h3>
+                            <p>Lifelong learning benchmark suite.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Gymnasium Robotics</h3>
+                            <p>Standard OpenAI Gym robotics environments.</p>
+                        </div>
+                        <div class="card">
+                            <h3>PandaGym</h3>
+                            <p>Franka Emika Panda robot environments.</p>
+                        </div>
+                        <div class="card">
+                            <h3>SimplerEnv</h3>
+                            <p>Simplified evaluation environments for VLA.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-robot"></i> Robot Hardware</h2>
+                    <p>Supported physical robots for real-world deployment.</p>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>SO101 Series</h3>
+                            <p>Standard and Bimanual configurations. Cost-effective research platform.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Koch v1.1</h3>
+                            <p>Open-source, 3D printable low-cost robotic arm.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Agilex Aloha</h3>
+                            <p>CobotMagic commercial version of the Aloha system.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ILStudio Team. Licensed under MIT License.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+

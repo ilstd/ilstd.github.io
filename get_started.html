@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILStudio - Get Started</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-robot"></i> ILStudio
+            </a>
+            <ul class="nav-links">
+                <li><a href="get_started.html" class="nav-link active">Get Started</a></li>
+                <li><a href="index.html" class="nav-link">Overview</a></li>
+                <li><a href="docs.html" class="nav-link">Docs</a></li>
+                <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                <li><a href="learnboard.html" class="nav-link">LearnBoard</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <a href="https://github.com/WwZzz/ILStudio" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> Github
+            </a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="doc-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="doc-sidebar">
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-header">Installation</li>
+                        <li><a href="#uv-install" class="active">Using uv (Recommended)</a></li>
+                        <li><a href="#pip-install">Using pip</a></li>
+                        
+                        <li class="sidebar-header">Troubleshooting</li>
+                        <li><a href="#mujoco-error">MuJoCo OpenGL</a></li>
+                        <li><a href="#robomimic-error">Robomimic Missing</a></li>
+                        <li><a href="#cmake-error">CMake Version</a></li>
+                        <li><a href="#memory-error">Memory Alignment</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="doc-content">
+                    <h1>Get Started</h1>
+                    <p class="lead">Set up your environment and start your first experiment in minutes.</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+                    <section id="uv-install">
+                        <h2>Method 1: Using uv (Recommended)</h2>
+                        <p>We recommend using <strong>uv</strong> for dependency management as it provides faster resolution and installation.</p>
+                        
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Clone the Repository</h4>
+                                <pre><code>git clone https://github.com/WwZzz/IL-Studio.git
+cd IL-Studio
+git submodule update --init --recursive</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Install & Sync Dependencies</h4>
+                                <pre><code>pip install uv
+uv sync
+source .venv/bin/activate</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="pip-install">
+                        <h2>Method 2: Using pip</h2>
+                        <p>If you prefer the standard pip workflow:</p>
+                        <pre><code>pip install -r requirements.txt</code></pre>
+                    </section>
+
+                    <section id="troubleshooting" style="margin-top: 4rem;">
+                        <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+                        <p>Common issues you might encounter during setup.</p>
+
+                        <h3 id="mujoco-error">MuJoCo OpenGL Error</h3>
+                        <p class="text-muted">Error: <code>mujoco.FatalError: an OpenGL platform library has not been loaded...</code></p>
+                        <p><strong>Solution:</strong> For headless servers, set the backend to EGL.</p>
+                        <pre><code>export MUJOCO_GL=egl</code></pre>
+
+                        <h3 id="robomimic-error">Robomimic Missing</h3>
+                        <p class="text-muted">Error: <code>[Errno 2] No such file: '.../robomimic/train.py'</code></p>
+                        <p><strong>Solution:</strong> Install specific version manually.</p>
+                        <pre><code>uv pip install robomimic==0.3.0</code></pre>
+
+                        <h3 id="cmake-error">CMake Version</h3>
+                        <p class="text-muted">Error: <code>Compatibility with CMake < 3.5 has been removed...</code></p>
+                        <p><strong>Solution:</strong> Set minimum policy version.</p>
+                        <pre><code>export CMAKE_POLICY_VERSION_MINIMUM=3.5</code></pre>
+
+                        <h3 id="memory-error">Memory Alignment</h3>
+                        <p class="text-muted">Error: <code>malloc(): unaligned tcache chunk detected</code></p>
+                        <p><strong>Solution:</strong> Use the spawn method for multiprocessing.</p>
+                        <pre><code>python eval_sim.py ... --use_spawn</code></pre>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ILStudio Team. Licensed under MIT License.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
